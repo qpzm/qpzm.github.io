@@ -3,13 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://qpzm.github.io/posts/about-me/</loc>
+    <loc>https://qpzm.github.io/about/</loc>
     <lastmod>2018-06-29T16:55:10+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://qpzm.github.io/categories/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -19,8 +14,7 @@
   </url>
   
   <url>
-    <loc>https://qpzm.github.io/posts/</loc>
-    <lastmod>2018-06-29T16:55:10+09:00</lastmod>
+    <loc>https://qpzm.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
