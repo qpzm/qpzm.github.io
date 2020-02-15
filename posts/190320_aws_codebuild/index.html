@@ -8,7 +8,7 @@
 		
 		
 		<meta name="generator" content="Hugo 0.55.4" />
-		<title>Ruby mysql2 gem 설치 시 libssl 오류 &middot; Hyunmin Lee</title>
+		<title>AWS Codepipeline에서 파일 실행 권한 사라지는 문제 &middot; Hyunmin Lee</title>
 		<link rel="shortcut icon" href="https://qpzm.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://qpzm.github.io/css/style.css">
 		<link rel="stylesheet" href="https://qpzm.github.io/css/highlight.css">
@@ -42,13 +42,21 @@
             <article>
                 <header>
                     <h1>
-                        Ruby mysql2 gem 설치 시 libssl 오류
+                        AWS Codepipeline에서 파일 실행 권한 사라지는 문제
                     </h1>
                     <h2 class="headline">
                     Mar 20, 2019 12:00
-                    · 155 words
+                    · 113 words
                     · 1 minute read
                       <span class="tags">
+                      
+                      
+                          
+                              <a href="https://qpzm.github.io/tags/docker">Docker</a>
+                          
+                              <a href="https://qpzm.github.io/tags/aws">AWS</a>
+                          
+                      
                       
                       </span>
                     </h2>
@@ -56,10 +64,6 @@
                 
                 <section id="post-body">
                     
-
-<h1 id="aws-codepipeline에서-codebuild를-실행하면-entrypoint-스크립트의-실행권한이-사라진다">AWS Codepipeline에서 Codebuild를 실행하면 ENTRYPOINT 스크립트의 실행권한이 사라진다.</h1>
-
-<p>#Dev/docker #Dev/AWS</p>
 
 <h2 id="문제-발생">문제 발생</h2>
 
@@ -85,12 +89,6 @@ Creating src_db_1 ... ·[32mdone·[0m
 <h2 id="해결">해결</h2>
 
 <p>Codebuild의  <code>buildspec.yml</code> 에서 다시 <code>chmod +x ./docker/app/docker-entry.sh</code>를 실행했다.</p>
-
-<h3 id="옵션-관련-참조-문서">옵션 관련 참조 문서</h3>
-
-<p>AWS EB Multicontainer는 ECS를 사용하기 때문에 아래를 참조해서 <code>Dockerrun.aws.json</code> 을 작성하자.
-<a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-task-definition.html">Creating a Task Definition - Amazon Elastic Container Service</a>
-<a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html">Task Definition Parameters - Amazon Elastic Container Service</a></p>
 
                 </section>
             </article>
