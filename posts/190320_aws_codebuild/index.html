@@ -45,9 +45,9 @@
                         Ruby mysql2 gem 설치 시 libssl 오류
                     </h1>
                     <h2 class="headline">
-                    Jul 24, 2019 15:00
-                    · 233 words
-                    · 2 minute read
+                    Mar 20, 2019 12:00
+                    · 155 words
+                    · 1 minute read
                       <span class="tags">
                       
                       </span>
@@ -57,59 +57,40 @@
                 <section id="post-body">
                     
 
-<h2 id="problem">Problem</h2>
+<h1 id="aws-codepipeline에서-codebuild를-실행하면-entrypoint-스크립트의-실행권한이-사라진다">AWS Codepipeline에서 Codebuild를 실행하면 ENTRYPOINT 스크립트의 실행권한이 사라진다.</h1>
 
-<p>mysql2 gem 설치 과정에서  <code>libssl</code> library가 없다는 오류가 발생했다.</p>
+<p>#Dev/docker #Dev/AWS</p>
 
-<pre><code>❯❯❯ gem install mysql2
-Building native extensions.  This could take a while...
-ERROR:  Error installing mysql2:
-        ERROR: Failed to build gem native extension.
-(생략)
-ld: library not found for -lssl
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
-make: *** [mysql2.bundle] Error 1
+<h2 id="문제-발생">문제 발생</h2>
 
-make failed, exit code 2
+<p>Dockerfile에서 <code>ENTRYPOINT</code> 스크립트를 실행하도록 변경했다. 이후 AWS Codebuild만 단독으로 실행하면 정상 작동했는데 Codepipeline으로 Codebuild를 실행하니  <code>permission denied</code> 에러가 발생했다.
+참고로 <code>docker run [SERVICE] [COMMAND]</code>  를 실행하면 항상 <code>ENTRYPOINT</code>로 지정된 스크립트가 실행된다.</p>
+
+<pre><code>[Container] 2019/03/20 08:48:36 Running command echo Testing...
+Testing...
+ [Container] 2019/03/20 08:48:36 Running command docker-compose run -e RAILS_ENV=test \
+-e RAILS_MASTER_KEY_TEST=$RAILS_MASTER_KEY_TEST \
+app /bin/sh -c &quot;rspec&quot;
+ Creating network &quot;src_default&quot; with the default driver
+Creating src_db_1 ...
+·[1A·[2K
+Creating src_db_1 ... ·[32mdone·[0m
+·[1BError response from daemon: OCI runtime create failed: container_linux.go:348: starting container process caused &quot;exec: \&quot;./docker/app/docker-entry.sh\&quot;: permission denied&quot;: unknown
 </code></pre>
 
-<p><a href="https://stackoverflow.com/questions/30834421/error-when-trying-to-install-app-with-mysql2-gem">[1]</a> 을 참고해 <code>openssl</code> 을 다시 설치해보도록 한다. <code>libssl</code> 이 없는데 왜 <code>openssl</code>을 설치해야하는 지 이상했는데,  <a href="https://en.wikibooks.org/wiki/OpenSSL">[2]</a>에 따르면 <code>openssl</code>이 <code>libssl</code>을 포함한다.</p>
+<h2 id="원인">원인</h2>
 
-<blockquote>
-<p>OpenSSL consists of two separate libraries: libcrypto and libssl. libcrypto is a general-purpose cryptography library which can be used alone. libssl is a TLS library which depends on libcrypto.</p>
-</blockquote>
+<p>S3로 소스코드를 압축해서 보내는 Codepipeline에서는 permission bits가 사라지는 문제가 있다고 한다. <a href="https://forums.aws.amazon.com/thread.jspa?threadID=235452">https://forums.aws.amazon.com/thread.jspa?threadID=235452</a></p>
 
-<pre><code>❯❯❯ brew reinstall openssl &amp;&amp; brew link openssl --force
-(중략)
-==&gt; Summary
-🍺  /usr/local/Cellar/openssl/1.0.2q: 1,794 files, 12.1MB
-Warning: Refusing to link macOS-provided software: openssl
-If you need to have openssl first in your PATH run:
-  echo 'export PATH=&quot;/usr/local/opt/openssl/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
+<h2 id="해결">해결</h2>
 
-For compilers to find openssl you may need to set:
-  export LDFLAGS=&quot;-L/usr/local/opt/openssl/lib&quot;
-  export CPPFLAGS=&quot;-I/usr/local/opt/openssl/include&quot;
+<p>Codebuild의  <code>buildspec.yml</code> 에서 다시 <code>chmod +x ./docker/app/docker-entry.sh</code>를 실행했다.</p>
 
-For pkg-config to find openssl you may need to set:
-  export PKG_CONFIG_PATH=&quot;/usr/local/opt/openssl/lib/pkgconfig&quot;
-</code></pre>
+<h3 id="옵션-관련-참조-문서">옵션 관련 참조 문서</h3>
 
-<h2 id="solution">Solution</h2>
-
-<p><a href="https://stackoverflow.com/questions/30834421/error-when-trying-to-install-app-with-mysql2-gem">[1]</a>의 다른 답변과 <a href="https://bundler.io/v1.13/man/bundle-config.1.html#BUILD-OPTIONS">[3]</a>을 참고해 bundler 에 openssl의 경로를 찾을 수 있도록 옵션을 추가하고 다시 설치한다.</p>
-
-<pre><code>$ bundle config --local build.mysql2 &quot;--with-ldflags=-L/usr/local/opt/openssl/lib —with-cppflags=-I/usr/local/opt/openssl/include&quot;
-$ bundle
-</code></pre>
-
-<h2 id="reference">Reference</h2>
-
-<ol>
-<li><a href="https://stackoverflow.com/questions/30834421/error-when-trying-to-install-app-with-mysql2-gem">mysql - Error when trying to install app with mysql2 gem - Stack Overflow</a></li>
-<li><a href="https://en.wikibooks.org/wiki/OpenSSL">OpenSSL - Wikibooks, open books for an open world</a></li>
-<li><a href="https://bundler.io/v1.13/man/bundle-config.1.html#BUILD-OPTIONS">Bundler: bundle config</a></li>
-</ol>
+<p>AWS EB Multicontainer는 ECS를 사용하기 때문에 아래를 참조해서 <code>Dockerrun.aws.json</code> 을 작성하자.
+<a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-task-definition.html">Creating a Task Definition - Amazon Elastic Container Service</a>
+<a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html">Task Definition Parameters - Amazon Elastic Container Service</a></p>
 
                 </section>
             </article>
