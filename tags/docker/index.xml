@@ -21,5 +21,16 @@
 [Container] 2019/03/20 08:48:36 Running command echo Testing... Testing... [Container] 2019/03/20 08:48:36 Running command docker-compose run -e RAILS_ENV=test \ -e RAILS_MASTER_KEY_TEST=$RAILS_MASTER_KEY_TEST \ app /bin/sh -c &amp;quot;rspec&amp;quot; Creating network &amp;quot;src_default&amp;quot; with the default driver Creating src_db_1 ... ·[1A·[2K Creating src_db_1 .</description>
     </item>
     
+    <item>
+      <title>도커가 도와주는 레일즈 개발과 배포</title>
+      <link>https://qpzm.github.io/posts/intro_to_docker/</link>
+      <pubDate>Wed, 13 Mar 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://qpzm.github.io/posts/intro_to_docker/</guid>
+      <description>도커에 대한 간략히 이해하고 레일즈 개발에 적용해 봅니다. 쓰다 보면 궁금해지므로 원리보다는 사용 방법에 집중합니다. 🙋🏼‍♀️ 라벨이 붙은 내용은 넘어가도 좋습니다.
+1. 굳이 왜? 쉽고 빠른 환경 설정 새 프로젝트를 시작하면 세팅하다 하루가 다 가곤 한다. 이제 Docker 를 이용하면 두 줄로 끝난다.
+docker-compose build docker-compose up  불변 배포 (Immutable deployment) 과거의 나는 서버에 도대체 무슨 짓을 벌였는가? rvm nginx 등 온갖 패키지, 설정 파일의 향연에 좌절하곤 했다.</description>
+    </item>
+    
   </channel>
 </rss>
