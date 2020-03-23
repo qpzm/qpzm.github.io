@@ -63,9 +63,7 @@ class Object < BasicObject
 end
 ```
 
-<center>
-![Method lookup chain](https://user-images.githubusercontent.com/18223805/62420541-b94f2200-b6ce-11e9-8b77-c8a965825ae3.png)
-</center>
+![Method lookup chain](https://user-images.githubusercontent.com/18223805/62420541-b94f2200-b6ce-11e9-8b77-c8a965825ae3.png){:.center}
 
 #### Multiple inclusion
 > if that module is already in the chain, Ruby silently ignores the second inclusion.
