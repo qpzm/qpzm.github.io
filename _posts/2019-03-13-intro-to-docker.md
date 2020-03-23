@@ -6,7 +6,7 @@ author: 이현민 lhm1442@gmail.com
 tags:
   - Docker
   - AWS
-permalink: "intro_to_docker"
+permalink: "posts/intro_to_docker"
 ---
 
 # Docker, AWS Codebuild, CodePipeline을 활용한 Ruby on Rails 개발과 배포
