@@ -8,7 +8,7 @@
 		
 		
 		<meta name="generator" content="Hugo 0.55.4" />
-		<title>도커가 도와주는 레일즈 개발과 배포 &middot; Hyunmin Lee</title>
+		<title>도커(Docker), AWS Codebuild, CodePipeline을 활용한 레일즈(Ruby on Rails) 개발과 배포 &middot; Hyunmin Lee</title>
 		<link rel="shortcut icon" href="https://qpzm.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://qpzm.github.io/css/style.css">
 		<link rel="stylesheet" href="https://qpzm.github.io/css/highlight.css">
@@ -42,11 +42,11 @@
             <article>
                 <header>
                     <h1>
-                        도커가 도와주는 레일즈 개발과 배포
+                        도커(Docker), AWS Codebuild, CodePipeline을 활용한 레일즈(Ruby on Rails) 개발과 배포
                     </h1>
                     <h2 class="headline">
                     Mar 13, 2019 12:00
-                    · 1089 words
+                    · 1087 words
                     · 6 minute read
                       <span class="tags">
                       
@@ -65,7 +65,7 @@
                 <section id="post-body">
                     
 
-<p>도커에 대한 간략히 이해하고 레일즈 개발에 적용해 봅니다. 쓰다 보면 궁금해지므로 원리보다는 사용 방법에 집중합니다. 🙋🏼‍♀️ 라벨이 붙은 내용은 넘어가도 좋습니다.</p>
+<p>도커에 대한 간략히 이해하고 레일즈 개발에 적용해 봅니다. 쓰다 보면 궁금해지므로 원리보다는 사용 방법에 집중합니다. 🙋 라벨이 붙은 내용은 넘어가도 좋습니다.</p>
 
 <h2 id="1-굳이-왜">1. 굳이 왜?</h2>
 
@@ -217,11 +217,11 @@ root@35b0e137ef35:/var/www/app# e.g. bundle exec rails db:migrate
 <pre><code>docker-compose down
 </code></pre>
 
-<p>🙋🏼‍♀️ <code>docker-compose</code>를 이용해 레일즈, postgresql을 실행해보자: <a href="https://docs.docker.com/compose/rails/">https://docs.docker.com/compose/rails/</a></p>
+<p>🙋 <code>docker-compose</code>를 이용해 레일즈, postgresql을 실행해보자: <a href="https://docs.docker.com/compose/rails/">https://docs.docker.com/compose/rails/</a></p>
 
-<h3 id="docker-compose-yml-구성">🙋🏼‍♀️ docker-compose.yml 구성</h3>
+<h3 id="docker-compose-yml-구성">🙋 <code>docker-compose.yml</code> 구성</h3>
 
-<p><code>hjtheplus/ppback</code>  레일즈 프로젝트의  <code>/docker-compose.yml</code> 을 살펴보자.</p>
+<p>예시 레일즈 프로젝트의  <code>/docker-compose.yml</code> 을 살펴보자.</p>
 
 <pre><code class="language-yaml">version: '3.2' # use compose format v3
 services:
@@ -271,12 +271,8 @@ services:
 <h3 id="배포-과정">⭐️ 배포 과정</h3>
 
 <ol>
-<li><code>dev</code> 브랜치에서 <code>docker-compose.yml</code>과 <code>Dockerrun.aws.json</code> 의 레일즈 이미지 태그를 새 릴리즈 버전과 동일하게 업데이트 후 커밋</li>
-</ol>
+<li><p><code>dev</code> 브랜치에서 <code>docker-compose.yml</code>과 <code>Dockerrun.aws.json</code> 의 레일즈 이미지 태그를 새 릴리즈 버전과 동일하게 업데이트 후 커밋</p></li>
 
-<p>예시: <a href="https://github.com/hjtheplus/ppback/pull/161/commits/024d292ee647c49a1af90212a053fa9dcb762944">https://github.com/hjtheplus/ppback/pull/161/commits/024d292ee647c49a1af90212a053fa9dcb762944</a></p>
-
-<ol>
 <li><p><code>staging</code> 브랜치로 pull request &amp; squash and merge</p></li>
 
 <li><p>AWS Codebuild 와 Codepipeline에 의해 ElasticBeanstalk에 자동 배포</p></li>
