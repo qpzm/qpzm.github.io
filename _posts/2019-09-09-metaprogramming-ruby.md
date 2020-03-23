@@ -11,6 +11,8 @@ Paolo Perrotta의 [Metaprogramming Ruby 2](http://shop.oreilly.com/product/97819
 "
 ---
 
+# [Book] Metaprogramming in Ruby 2
+
 ## Ch2. The Object Model
 ### instance variable은 할당할 때 생긴다
 > Instance variables just spring into existence when you assign them a value, so you can have objects of the same class that carry different instance variables.

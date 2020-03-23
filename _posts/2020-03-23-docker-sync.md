@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "느려도 너무 느린 Docker for mac의 bind mount 속도 개선"
+title: "느려도 너무 느린 Docker for mac의 bind mount 속도 개선 이야기"
 date: 2020-03-23 19:30:00 +0900
 author: 이현민 lhm1442@gmail.com
 tags:
   - Docker
 ---
+
+# Docker for mac의 bind mount 속도 개선 이야기
 
 ## 똑같이 도커 컨테이너에서 돌리는데...
 AWS Codebuild 리눅스 호스트에서는 5분만에 전체 테스트가 돌아가는데 제 맥북에서는 25분이 걸립니다. 아래는 AWS 코드 빌드 general1.small(3 GB RAM, 2 vCPU ) 에서의 실행 결과입니다.
@@ -22,7 +24,7 @@ Finished in 5 minutes 17 seconds (files took 6.32 seconds to load)
 #### volumes
 - 호스트 파일 시스템 중 도커에 의해 관리되는 `/var/lib/docker/volumes/` 에 저장됩니다.
 - 도커 이외의 프로세스가 수정해서는 안 됩니다.
-- 볼륨의 이름만 명시하면 된다. 따라서 호스트에서의 파일 위치가 정해져 있지 않을 때, 예를 들면 개발 환경에서 호스트에서 편집한 코드를 컨테이너에 공유할 때 많이 쓴다.
+- 볼륨의 이름만 명시하면 된다. 따라서 호스트에서의 파일 위치가 정해져 있지 않을 때, 예를 들면 개발 환경에서 호스트에서 편집한 코드를 컨테이너에 공유할 때 많이 씁니다.
 
 #### bind mounts
 - [Bind mount](https://docs.docker.com/storage/bind-mounts/)는 도커 프로세스와 텍스트 편집기와 같은 도커 이외의 프로세스가 모두 내부 파일을 수정할 수 있습니다. 따라서 개발 환경에서 코드를 동기화하는 용도로 널리 쓰입니다.

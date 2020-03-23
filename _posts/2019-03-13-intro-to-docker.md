@@ -9,6 +9,8 @@ tags:
 permalink: "intro_to_docker"
 ---
 
+# Docker, AWS Codebuild, CodePipeline을 활용한 Ruby on Rails 개발과 배포
+
 도커에 대한 간략히 이해하고 레일즈 개발에 적용해 봅니다. 쓰다 보면 궁금해지므로 원리보다는 사용 방법에 집중합니다. 🙋 라벨이 붙은 내용은 넘어가도 좋습니다.
 
 ## 1. 굳이 왜?

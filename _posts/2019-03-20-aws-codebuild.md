@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "AWS Codepipeline에서 파일 실행 권한 사라지는 문제"
+title: "AWS Codepipeline에서 파일 실행 권한이 사라지는 문제"
 date: 2019-03-20 12:00:00 +0900
 tags:
   - Docker
   - AWS
 summary: "AWS Codebuild를 Codepipeline과 연동할 때, docker entrypoint script의 file permission이 사라지기 때문에 buildspec.yml에서 다시 chmod +x 를 해줘야 합니다. "
 ---
+
+# AWS Codepipeline에서 파일 실행 권한이 사라지는 문제
 
 ## 문제 발생
 Dockerfile에서 `ENTRYPOINT` 스크립트를 실행하도록 변경했다. 이후 AWS Codebuild만 단독으로 실행하면 정상 작동했는데 Codepipeline으로 Codebuild를 실행하니  `permission denied` 에러가 발생했다.
