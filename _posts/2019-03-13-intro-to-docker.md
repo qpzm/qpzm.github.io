@@ -6,6 +6,7 @@ author: 이현민 lhm1442@gmail.com
 tags:
   - Docker
   - AWS
+permalink: "intro_to_docker"
 ---
 
 도커에 대한 간략히 이해하고 레일즈 개발에 적용해 봅니다. 쓰다 보면 궁금해지므로 원리보다는 사용 방법에 집중합니다. 🙋 라벨이 붙은 내용은 넘어가도 좋습니다.
